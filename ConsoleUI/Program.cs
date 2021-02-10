@@ -9,11 +9,9 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            //ProductTest();
+            ProductTest();
             //CategoryTest();
             Console.WriteLine("Dilberoğlu");
-
-
         }
 
         private static void CategoryTest()
@@ -28,10 +26,20 @@ namespace ConsoleUI
         private static void ProductTest()
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var product in productManager.GetProductDetails())
+
+            var result = productManager.GetProductDetails();
+            if (result.Succes==true)
             {
-                Console.WriteLine(product.CategoryName + product.ProductName);
+                foreach (var product in result.Data)
+                {
+                    Console.WriteLine(product.CategoryName + product.ProductName);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+            
         }
     }
 }
